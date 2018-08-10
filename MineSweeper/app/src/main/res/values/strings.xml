@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">扫雷游戏</string>
+    <string name="more_back_to_exit_toast">再按一次还回键退出游戏</string>
+    <string name="new_game">开始新游戏</string>
+    <string name="mode_change">模式切换</string>
+    <string name="back_to_menu">还回菜单</string>
+</resources>
