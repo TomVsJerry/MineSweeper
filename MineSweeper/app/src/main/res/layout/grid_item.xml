@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="110px"
-    android:layout_height="110px"
-    android:background="@android:color/white">
+    android:layout_width="100px"
+    android:layout_height="100px">
 
     <Button
-        android:layout_centerInParent="true"
         android:id="@+id/btn_mine_item"
         android:layout_width="100px"
         android:layout_height="100px"
-        android:background="#D6d7d7" />
+        android:layout_centerInParent="true"
+        android:background="@mipmap/flag0" />
 
 </RelativeLayout>
