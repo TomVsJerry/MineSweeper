@@ -8,9 +8,20 @@ public class Block {
     private BlockState mBlockState;
     private int mAroundMineCount;
     private int hasMine;
+    private int index;
     private int _X;
     private int _Y;
-    
+
+    public Block(int i, int widthCount, int heightCount) {
+        this.index = i;
+        this._X = i % widthCount;
+        this._Y = i / widthCount;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
     public BlockState getmBlockState() {
         return mBlockState;
     }

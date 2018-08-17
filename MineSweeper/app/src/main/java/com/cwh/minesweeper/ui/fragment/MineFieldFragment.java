@@ -3,6 +3,8 @@ package com.cwh.minesweeper.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +14,17 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import com.cwh.minesweeper.R;
+import com.cwh.minesweeper.bean.Block;
 import com.cwh.minesweeper.presenter.IMineFieldPresenter;
 import com.cwh.minesweeper.presenter.MineFieldPresenterImp;
 import com.cwh.minesweeper.ui.activity.MainActivity;
+import com.cwh.minesweeper.ui.adapter.MineFieldRecyclerAdapter;
+import com.cwh.minesweeper.ui.adapter.MineRecyclerViewDecoration;
 import com.cwh.minesweeper.view.IMineFieldView;
 
+import java.util.ArrayList;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -27,6 +35,11 @@ import butterknife.OnClick;
 public class MineFieldFragment extends Fragment implements IMineFieldView {
     private static final String TAG = "MineFieldFragment";
     private IMineFieldPresenter iMineFieldPresenter;
+    private ArrayList<Block> mBlockList;
+    private static int widthCount = 5;
+    private static int heightCount = 5;
+    @Bind(R.id.id_recyclerview)
+    RecyclerView mRecyclerView;
 
     @Nullable
     @Override
@@ -34,21 +47,29 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_mine_field, container, false);
         ButterKnife.bind(this, view);
         iMineFieldPresenter = new MineFieldPresenterImp(this);
+        initData();
         initView(view);
         return view;
     }
 
+    private void initData() {
+        mBlockList = new ArrayList<>();
+        int count = widthCount * heightCount;
+        for (int i = 0; i < count; i++) {
+            Block block = new Block(i, widthCount, heightCount);
+            mBlockList.add(block);
+        }
+    }
+
     private void initView(View view) {
-        int count = 10;//view.getMeasuredWidth() / 30;
-        Log.d(TAG, "count = " + count);
-        GridView gridView = (GridView) view.findViewById(R.id.gv_field);
-        GridViewAdapter gridAdapter = new GridViewAdapter();
-        gridAdapter.setCount(count);
-        gridView.setVerticalSpacing(0);
-        gridView.setHorizontalSpacing(0);
-        gridView.setNumColumns(count);
-        gridView.setAdapter(gridAdapter);
-        gridAdapter.notifyDataSetChanged();
+        ViewGroup.LayoutParams layoutParams = mRecyclerView.getLayoutParams();
+        layoutParams.width = widthCount * (100 + 8);
+        layoutParams.height = heightCount * (100 + 8);
+        mRecyclerView.setLayoutParams(layoutParams);
+
+        mRecyclerView.setAdapter(new MineFieldRecyclerAdapter(getContext(), mBlockList));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), widthCount));
+        mRecyclerView.addItemDecoration(new MineRecyclerViewDecoration(getContext()));
     }
 
     @Override
@@ -77,34 +98,5 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
     @Override
     public void onModeChange(int mode) {
 
-    }
-
-    private class GridViewAdapter extends BaseAdapter {
-        private int count;
-
-        public void setCount(int c) {
-            this.count = c;
-        }
-
-        @Override
-        public int getCount() {
-            return count * count;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return i;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            View btn = LayoutInflater.from(getContext()).inflate(R.layout.grid_item, null);
-            return btn;
-        }
     }
 }

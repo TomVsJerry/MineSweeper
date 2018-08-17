@@ -24,11 +24,30 @@
             android:text="@string/back_to_menu" />
     </LinearLayout>
 
-    <GridView
-        android:id="@+id/gv_field"
+    <com.shizhefei.view.hvscrollview.HVScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/guide_hvScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10px"
-        android:listSelector="@android:color/transparent"
-         />
+        android:fadingEdge="horizontal|vertical"
+        android:padding="20dp"
+        android:scrollbars="horizontal|vertical"
+        app:childLayoutCenter="false"
+        app:fillViewportH="false"
+        app:fillViewportV="false"
+        app:scrollOrientation="both">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/id_recyclerview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="#ffff0000" />
+
+        </LinearLayout>
+
+    </com.shizhefei.view.hvscrollview.HVScrollView>
 </LinearLayout>
