@@ -36,8 +36,8 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
     private static final String TAG = "MineFieldFragment";
     private IMineFieldPresenter iMineFieldPresenter;
     private ArrayList<Block> mBlockList;
-    private static int widthCount = 5;
-    private static int heightCount = 5;
+    private static int widthCount = 10;
+    private static int heightCount = 10;
     @Bind(R.id.id_recyclerview)
     RecyclerView mRecyclerView;
 

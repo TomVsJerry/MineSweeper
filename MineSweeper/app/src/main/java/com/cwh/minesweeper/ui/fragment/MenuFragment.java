@@ -31,9 +31,17 @@ public class MenuFragment extends Fragment implements IMenuView {
         return view;
     }
 
-    @OnClick(R.id.btn_new_game)
+    @OnClick({R.id.btn_new_game,R.id.btn_open_setting})
     public void startNewGame(View view){
-        mMenuPresenterImp.createNewGame();
+        switch (view.getId()){
+            case R.id.btn_new_game:
+                mMenuPresenterImp.createNewGame();
+                break;
+            case R.id.btn_open_setting:
+                mMenuPresenterImp.openGameSetting();
+                break;
+        }
+
     }
 
     @Override
@@ -70,7 +78,7 @@ public class MenuFragment extends Fragment implements IMenuView {
 
     @Override
     public void onOpenGameSetting() {
-
+        ((MainActivity)getActivity()).openGameSetting();
     }
 
     @Override

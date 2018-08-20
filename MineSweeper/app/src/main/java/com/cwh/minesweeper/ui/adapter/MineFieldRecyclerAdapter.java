@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.cwh.minesweeper.R;
 import com.cwh.minesweeper.bean.Block;
+import com.cwh.minesweeper.utils.SharedPreferenceUtils;
 
 import java.util.ArrayList;
 
@@ -49,6 +50,11 @@ public class MineFieldRecyclerAdapter extends RecyclerView.Adapter<MineFieldRecy
         public MineFieldRecyclerAdapterHolder(View itemView) {
             super(itemView);
             button = (Button) itemView.findViewById(R.id.btn_mine_item);
+            ViewGroup.LayoutParams layoutParams = button.getLayoutParams();
+            int blockSize = SharedPreferenceUtils.getInstance().<Integer>getValue(mContext, "block_size", 20);
+            layoutParams.height = blockSize + 20;
+            layoutParams.width = blockSize + 20;
+            button.setLayoutParams(layoutParams);
         }
     }
 }

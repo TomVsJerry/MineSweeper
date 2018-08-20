@@ -2,13 +2,15 @@
     <string name="app_name">扫雷游戏</string>
     <string name="more_back_to_exit_toast">再按一次还回键退出游戏</string>
     <string name="new_game">开始新游戏</string>
+    <string name="open_setting">游戏设置</string>
     <string name="mode_change">模式切换</string>
     <string name="back_to_menu">还回菜单</string>
     <string name="game_level_tips">难度等级设置</string>
     <string name="low_level">低级</string>
-    <string name="mediu_level">中级</string>
+    <string name="medium_level">中级</string>
     <string name="high_level">高级</string>
     <string name="self_define_level">自定义</string>
-    <string name="map_size_setting">地图大小设置</string>
-    <string name="block_size_setting">方块大小设置</string>
+    <string name="map_size_setting_tips">地图大小设置</string>
+    <string name="block_size_setting_tips">方块大小设置</string>
+    <string name="confirm">确定</string>
 </resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#37474f"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/setting_item_style"
+        android:text="@string/block_size_setting_tips" />
+
+    <TextView
+        android:id="@+id/tv_block_size_value"
+        style="@style/setting_item_style"
+        android:text="20" />
+
+    <SeekBar
+        android:id="@+id/sb_block_size"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:max="100" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm" />
+</LinearLayout>

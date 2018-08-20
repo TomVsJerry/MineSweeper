@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:background="#37474f"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/RadioButtonStyle"
+        android:gravity="center"
+        android:paddingLeft="0dp"
+        android:text="@string/game_level_tips" />
+
+    <RadioGroup
+        android:id="@+id/rg_game_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/game_level_low"
+            style="@style/RadioButtonStyle"
+            android:text="@string/low_level" />
+
+        <RadioButton
+            android:id="@+id/game_level_medium"
+            style="@style/RadioButtonStyle"
+            android:text="@string/medium_level" />
+
+        <RadioButton
+            android:id="@+id/game_level_high"
+            style="@style/RadioButtonStyle"
+            android:text="@string/high_level" />
+
+        <RadioButton
+            android:id="@+id/game_level_self_define"
+            style="@style/RadioButtonStyle"
+            android:text="@string/self_define_level" />
+    </RadioGroup>
+</LinearLayout>

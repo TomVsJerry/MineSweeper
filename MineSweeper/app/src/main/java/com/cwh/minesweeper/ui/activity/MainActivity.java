@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.cwh.minesweeper.R;
 import com.cwh.minesweeper.ui.fragment.MenuFragment;
 import com.cwh.minesweeper.ui.fragment.MineFieldFragment;
+import com.cwh.minesweeper.ui.fragment.SettingFragment;
+
 import butterknife.ButterKnife;
 
 public class MainActivity extends FragmentActivity {
@@ -16,6 +18,7 @@ public class MainActivity extends FragmentActivity {
 
     private MineFieldFragment mMineFieldFragment;
     private MenuFragment mMenuFragment;
+    private SettingFragment mSettingFragment;
     private FragmentManager mFragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public class MainActivity extends FragmentActivity {
         ButterKnife.bind(this);
         mMineFieldFragment = new MineFieldFragment();
         mMenuFragment = new MenuFragment();
+        mSettingFragment = new SettingFragment();
         mFragmentManager = getSupportFragmentManager();
         backToMenu();
     }
@@ -45,9 +49,12 @@ public class MainActivity extends FragmentActivity {
         ButterKnife.unbind(this);
     }
 
-
     public void startNewGame() {
         mFragmentManager.beginTransaction().replace(R.id.fl_game, mMineFieldFragment).commit();
+    }
+
+    public void openGameSetting() {
+        mFragmentManager.beginTransaction().replace(R.id.fl_game, mSettingFragment).commit();
     }
 
     public void backToMenu(){
@@ -57,4 +64,6 @@ public class MainActivity extends FragmentActivity {
     public void showMoreBackToExitToast() {
         Toast.makeText(this, R.string.more_back_to_exit_toast, Toast.LENGTH_LONG).show();
     }
+
+
 }
