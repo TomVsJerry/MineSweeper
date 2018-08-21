@@ -21,8 +21,8 @@ public class SettingPresenterImp implements ISettingPresenter {
     @Override
     public void initSetting() {
         int level = 0;
-        int gameLevel = SharedPreferenceUtils.getInstance().getValue(mContext, "game_level", level);
-        int blockSize = SharedPreferenceUtils.getInstance().getValue(mContext, "block_size", level);
+        int gameLevel = SharedPreferenceUtils.getInstance().getValue(mContext, SharedPreferenceUtils.GAME_LEVEL, level);
+        int blockSize = SharedPreferenceUtils.getInstance().getValue(mContext, SharedPreferenceUtils.BLOCK_SIZE, level);
         iSettingView.onGameLevelSettingInit(gameLevel);
         iSettingView.onBlockSizeSettingInit(blockSize);
     }
@@ -30,7 +30,7 @@ public class SettingPresenterImp implements ISettingPresenter {
     @Override
     public void setGameLevel() {
         int level = 0;
-        int gameLevel = SharedPreferenceUtils.getInstance().getValue(mContext, "game_level", level);
+        int gameLevel = SharedPreferenceUtils.getInstance().getValue(mContext, SharedPreferenceUtils.GAME_LEVEL, level);
         iSettingView.onGameLevelSetting(gameLevel);
     }
 
@@ -42,17 +42,17 @@ public class SettingPresenterImp implements ISettingPresenter {
     @Override
     public void setBlockSize() {
         int level = 0;
-        int blockSize = SharedPreferenceUtils.getInstance().getValue(mContext, "block_size", level);
+        int blockSize = SharedPreferenceUtils.getInstance().getValue(mContext, SharedPreferenceUtils.BLOCK_SIZE, level);
         iSettingView.onBlockSizeSetting(blockSize);
     }
 
     @Override
     public void saveBlockSize(int size) {
-        SharedPreferenceUtils.getInstance().setValue(mContext, "block_size", size);
+        SharedPreferenceUtils.getInstance().setValue(mContext, SharedPreferenceUtils.BLOCK_SIZE, size);
     }
 
     @Override
     public void saveGameLevel(int level) {
-        SharedPreferenceUtils.getInstance().setValue(mContext, "game_level", level);
+        SharedPreferenceUtils.getInstance().setValue(mContext, SharedPreferenceUtils.GAME_LEVEL, level);
     }
 }

@@ -13,6 +13,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.cwh.minesweeper.R;
+import com.cwh.minesweeper.utils.Constant;
 
 /**
  * Created by chenweihu on 2018/8/20 0020.
@@ -55,7 +56,7 @@ public class BlockSizeSettingDialog extends Dialog {
         mSBBlockSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                mTvBlockSizeValue.setText("" + (i + 20));
+                mTvBlockSizeValue.setText("" + (i + Constant.MIN_BLOCK_SIZE));
             }
 
             @Override
@@ -69,7 +70,7 @@ public class BlockSizeSettingDialog extends Dialog {
             }
         });
         mSBBlockSize.setProgress(seekValue);
-        mTvBlockSizeValue.setText("" + (seekValue + 20));
+        mTvBlockSizeValue.setText("" + (seekValue + Constant.MIN_BLOCK_SIZE));
     }
 
     public interface OnBlockSizeConfirmedListener {

@@ -8,6 +8,7 @@
         android:layout_width="100px"
         android:layout_height="100px"
         android:layout_centerInParent="true"
-        android:background="@color/flag0" />
+        android:background="@color/flag0"
+        android:textSize="26sp" />
 
 </RelativeLayout>

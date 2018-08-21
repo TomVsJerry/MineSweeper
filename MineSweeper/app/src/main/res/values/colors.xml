@@ -6,4 +6,13 @@
     <color name="list_divider">#FFFFFF</color>
     <color name="list_select">#0000FF</color>
     <color name="flag0">#cdcaca</color>
+    <color name="color_num1">#00a2e8</color>
+    <color name="color_num2">#22b14c</color>
+    <color name="color_num3">#880015</color>
+    <color name="color_num4">#3f48cc</color>
+    <color name="color_num5">#a349a4</color>
+    <color name="color_num6">#e13f7c</color>
+    <color name="color_num7">#b97a57</color>
+    <color name="color_num8">#7f7f7f</color>
+
 </resources>

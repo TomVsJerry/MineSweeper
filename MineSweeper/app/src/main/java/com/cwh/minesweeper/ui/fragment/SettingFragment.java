@@ -13,6 +13,7 @@ import com.cwh.minesweeper.presenter.SettingPresenterImp;
 import com.cwh.minesweeper.ui.activity.MainActivity;
 import com.cwh.minesweeper.ui.dialog.BlockSizeSettingDialog;
 import com.cwh.minesweeper.ui.dialog.GameLevelDialog;
+import com.cwh.minesweeper.utils.Constant;
 import com.cwh.minesweeper.view.ISettingView;
 
 import butterknife.Bind;
@@ -110,7 +111,7 @@ public class SettingFragment extends Fragment implements ISettingView {
 
     @Override
     public void onBlockSizeSettingInit(int blockSize) {
-        tvBlockSize.setText("" + (blockSize + 20));
+        tvBlockSize.setText("" + (blockSize + Constant.MIN_BLOCK_SIZE));
     }
 
     @Override

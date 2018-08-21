@@ -12,6 +12,8 @@ public class SharedPreferenceUtils {
     private static SharedPreferenceUtils mInstance;
 
     private static final String DEFAULT_NAME = "default.xml";
+    public static final String GAME_LEVEL = "game_level";
+    public static final String BLOCK_SIZE = "block_size";
     private String name = DEFAULT_NAME;
     private Context mContext;
 
