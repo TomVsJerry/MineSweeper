@@ -64,6 +64,4 @@ public class MainActivity extends FragmentActivity {
     public void showMoreBackToExitToast() {
         Toast.makeText(this, R.string.more_back_to_exit_toast, Toast.LENGTH_LONG).show();
     }
-
-
 }

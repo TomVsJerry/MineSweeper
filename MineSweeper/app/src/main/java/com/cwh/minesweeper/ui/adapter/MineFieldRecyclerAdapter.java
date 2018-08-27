@@ -10,6 +10,8 @@ import android.widget.Button;
 
 import com.cwh.minesweeper.R;
 import com.cwh.minesweeper.bean.Block;
+import com.cwh.minesweeper.presenter.IMineFieldPresenter;
+import com.cwh.minesweeper.presenter.MineFieldPresenterImp;
 import com.cwh.minesweeper.utils.Constant;
 import com.cwh.minesweeper.utils.SharedPreferenceUtils;
 
@@ -24,10 +26,11 @@ public class MineFieldRecyclerAdapter extends RecyclerView.Adapter<MineFieldRecy
     private static final String TAG = "RecyclerAdapter";
     private ArrayList<Block> mBlockList;
     private Context mContext;
-
-    public MineFieldRecyclerAdapter(Context context, ArrayList<Block> list) {
+    private IMineFieldPresenter iMineFieldPresenter;
+    public MineFieldRecyclerAdapter(Context context, ArrayList<Block> list,IMineFieldPresenter presenter) {
         this.mBlockList = list;
         this.mContext = context;
+        this.iMineFieldPresenter = presenter;
     }
 
     @Override
@@ -70,8 +73,8 @@ public class MineFieldRecyclerAdapter extends RecyclerView.Adapter<MineFieldRecy
                             break;
                     }
                     setBackground((Button) view, b);
+                    iMineFieldPresenter.notifyBlockClick(b.getIndex());
                 }
-
             }
         });
 

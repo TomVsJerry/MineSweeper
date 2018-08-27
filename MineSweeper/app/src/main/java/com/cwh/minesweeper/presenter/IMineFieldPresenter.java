@@ -7,4 +7,6 @@ package com.cwh.minesweeper.presenter;
 public interface IMineFieldPresenter {
     public void setClickMode(int mode);
     public void backToMenu();
+    public void notifyBlockClick(int position);
+    public void onDestroyView();
 }
