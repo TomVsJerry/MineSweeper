@@ -12,5 +12,8 @@
     <string name="self_define_level">自定义</string>
     <string name="map_size_setting_tips">地图大小设置</string>
     <string name="block_size_setting_tips">方块大小设置</string>
-    <string name="confirm">确定</string>
+    <string name="title_game_end_success">恭喜你挑战成功！</string>
+    <string name="title_game_end_fail">挑战失败，请再接再厉！</string>
+    <string name="confirm">重新开始</string>
+    <string name="cancel">关闭窗口</string>
 </resources>

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cwh.minesweeper.R;
 import com.cwh.minesweeper.bean.Block;
@@ -22,6 +23,7 @@ import com.cwh.minesweeper.presenter.MineFieldPresenterImp;
 import com.cwh.minesweeper.ui.activity.MainActivity;
 import com.cwh.minesweeper.ui.adapter.MineFieldRecyclerAdapter;
 import com.cwh.minesweeper.ui.adapter.MineRecyclerViewDecoration;
+import com.cwh.minesweeper.ui.dialog.GameEndDialog;
 import com.cwh.minesweeper.utils.Constant;
 import com.cwh.minesweeper.utils.SharedPreferenceUtils;
 import com.cwh.minesweeper.view.IMineFieldView;
@@ -59,7 +61,7 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
 
 
     @Override
-    public void onInitView(ArrayList<Block> list, int widthCount, int heightCount, int blockSize,IMineFieldPresenter presenter) {
+    public void onInitView(ArrayList<Block> list, int widthCount, int heightCount, int blockSize, IMineFieldPresenter presenter) {
         ViewGroup.LayoutParams layoutParams = mRecyclerView.getLayoutParams();
         layoutParams.width = widthCount * (blockSize + Constant.MIN_BLOCK_SIZE + 8);
         layoutParams.height = heightCount * (blockSize + Constant.MIN_BLOCK_SIZE + 8);
@@ -71,12 +73,40 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
 
     @Override
     public void onGameEndSucced() {
+        ivFace.setBackgroundResource(R.mipmap.face1);
+        GameEndDialog mGameEnddialog = new GameEndDialog(getContext(), GameEndDialog.DILOG_TITLE_TYPE_FAILED, new GameEndDialog.OnGameEndDilogClickedListener() {
 
+            @Override
+            public void onGameEndDilogCancel() {
+
+            }
+
+            @Override
+            public void onGameEndDilogConfirm() {
+                Toast.makeText(getContext(),"重新开始新游戏",Toast.LENGTH_SHORT).show();
+            }
+        });
+        mGameEnddialog.setCanceledOnTouchOutside(false);
+        mGameEnddialog.show();
     }
 
     @Override
     public void onGameEndFailed(ArrayList<Block> list, int position) {
         ivFace.setBackgroundResource(R.mipmap.face2);
+        GameEndDialog mGameEnddialog = new GameEndDialog(getContext(), GameEndDialog.DILOG_TITLE_TYPE_FAILED, new GameEndDialog.OnGameEndDilogClickedListener() {
+
+            @Override
+            public void onGameEndDilogCancel() {
+
+            }
+
+            @Override
+            public void onGameEndDilogConfirm() {
+                Toast.makeText(getContext(),"重新开始新游戏",Toast.LENGTH_SHORT).show();
+            }
+        });
+        mGameEnddialog.setCanceledOnTouchOutside(false);
+        mGameEnddialog.show();
     }
 
     @Override

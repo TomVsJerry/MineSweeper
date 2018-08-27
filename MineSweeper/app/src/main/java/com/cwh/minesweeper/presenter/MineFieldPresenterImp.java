@@ -78,7 +78,6 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
             iMineFieldView.onGameEndFailed(mBlockList, position);
             return;
         }
-
     }
 
     @Override
