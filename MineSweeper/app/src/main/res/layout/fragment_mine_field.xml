@@ -36,6 +36,7 @@
         app:childLayoutCenter="false"
         app:fillViewportH="false"
         app:fillViewportV="false"
+
         app:scrollOrientation="both">
 
         <LinearLayout
@@ -47,6 +48,7 @@
                 android:id="@+id/id_recyclerview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/color_background"
                 android:divider="#ffff0000" />
 
         </LinearLayout>

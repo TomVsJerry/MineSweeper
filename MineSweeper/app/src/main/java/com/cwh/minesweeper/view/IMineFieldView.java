@@ -12,10 +12,14 @@ import java.util.ArrayList;
 public interface IMineFieldView {
     void onBackToMenu();
     void onModeChange(int mode);
-    void onInitView(ArrayList<Block> list, int widthCount, int heightCount, int blockSize, IMineFieldPresenter presenter);
+    void onInitView(ArrayList<Block> list, int widthCount, int heightCount, int blockSize, int mineCount,IMineFieldPresenter presenter);
 
     void onGameEndSucced();
 
     void onGameEndFailed(ArrayList<Block> list,int position);
     void onTimeUpdate(String str);
+
+    void openBlankBlockEdge(int position);
+
+    void updateRemainMineCount(int count);
 }

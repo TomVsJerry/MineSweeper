@@ -50,9 +50,7 @@ public class MineFieldRecyclerAdapter extends RecyclerView.Adapter<MineFieldRecy
     public void onBindViewHolder(MineFieldRecyclerAdapterHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder position = " + position);
         Block block = mBlockList.get(position);
-        //holder.button.setText("(" + block.get_X() + " ," + block.get_Y() + ")");
         holder.button.setTag(block);
-        //setBackground(holder.button, block);
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +96,7 @@ public class MineFieldRecyclerAdapter extends RecyclerView.Adapter<MineFieldRecy
                             break;
                     }
                     setBackground((Button) view, b);
+                    iMineFieldPresenter.notifyBlockLongClick(b.getIndex());
                 }
                 return true;
             }
@@ -107,13 +106,13 @@ public class MineFieldRecyclerAdapter extends RecyclerView.Adapter<MineFieldRecy
     public void setBackground(Button b, Block block) {
         switch (block.getmBlockState()) {
             case Block.BLOCK_STATE_INIT:
-                b.setBackgroundColor(mContext.getResources().getColor(R.color.flag0));
+                b.setBackgroundResource(R.drawable.bg_block_flag_init);
                 break;
             case Block.BLOCK_STATE_FLAG:
-                b.setBackgroundResource(R.mipmap.flag1);
+                b.setBackgroundResource(R.drawable.bg_block_flag_flaged);
                 break;
             case Block.BLOCK_STATE_QUESTION:
-                b.setBackgroundResource(R.mipmap.flag2);
+                b.setBackgroundResource(R.drawable.bg_block_flag_question);
                 break;
             case Block.BLOCK_STATE_OPEN:
                 setOpenBackground(b, block);
@@ -123,7 +122,7 @@ public class MineFieldRecyclerAdapter extends RecyclerView.Adapter<MineFieldRecy
 
     private void setOpenBackground(Button b, Block block) {
         if (block.isMine()) {
-            b.setBackgroundResource(R.mipmap.bomb4);
+            b.setBackgroundResource(R.drawable.bomb4);
         } else {
             switch (block.getmAroundMineCount()) {
                 case 0:
@@ -161,7 +160,7 @@ public class MineFieldRecyclerAdapter extends RecyclerView.Adapter<MineFieldRecy
                     b.setTextColor(mContext.getResources().getColor(R.color.color_num8));
                     break;
             }
-            b.setBackgroundResource(R.mipmap.num_0);
+            b.setBackgroundResource(R.drawable.num_0);
         }
     }
 

@@ -35,7 +35,7 @@ public class GameEndDialog extends Dialog {
         this.mContext = context;
         this.mType = type;
         this.mOnGameEndDilogClickedListener = listener;
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_game_level, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_game_end, null);
         tvTitle = (TextView) view.findViewById(R.id.tv_game_end_title);
         btnConfirm = (Button) view.findViewById(R.id.btn_confirm);
         btnCancel = (Button) view.findViewById(R.id.btn_cancel);
@@ -60,9 +60,8 @@ public class GameEndDialog extends Dialog {
         WindowManager.LayoutParams lp = win.getAttributes();
         lp.gravity = Gravity.CENTER;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.width = 500;
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
         win.setAttributes(lp);
-
 
     }
 

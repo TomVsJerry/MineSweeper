@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">扫雷游戏</string>
+    <string name="app_name">MineSweeper</string>
     <string name="more_back_to_exit_toast">再按一次还回键退出游戏</string>
     <string name="new_game">开始新游戏</string>
     <string name="open_setting">游戏设置</string>
@@ -14,6 +14,8 @@
     <string name="block_size_setting_tips">方块大小设置</string>
     <string name="title_game_end_success">恭喜你挑战成功！</string>
     <string name="title_game_end_fail">挑战失败，请再接再厉！</string>
-    <string name="confirm">重新开始</string>
+    <string name="confirm">确定</string>
+    <string name="restart">重新开始</string>
     <string name="cancel">关闭窗口</string>
+    <string name="remain_mine">剩余雷数:</string>
 </resources>

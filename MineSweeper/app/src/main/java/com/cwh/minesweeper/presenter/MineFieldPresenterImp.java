@@ -45,21 +45,26 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
         this.iMineFieldView = view;
         this.mContext = context;
         this.isGameEnd = false;
+    }
+
+    @Override
+    public void startGame() {
         initMineFieldData();
         updateTimeTextView();
     }
 
     private void updateTimeTextView() {
         updateTimeString();
-        if(!isGameEnd){
-            mHandler.sendEmptyMessageDelayed(MSG_WHAT_TIME_COUNT,1000);
+        if (!isGameEnd) {
+            mHandler.sendEmptyMessageDelayed(MSG_WHAT_TIME_COUNT, 1000);
         }
     }
 
-    private void updateTimeString(){
+    private void updateTimeString() {
         String str = TimeUtils.fomatTime(mGameTime);
         iMineFieldView.onTimeUpdate(str);
     }
+
     @Override
     public void setClickMode(int mode) {
         iMineFieldView.onModeChange(mode);
@@ -73,17 +78,103 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
     @Override
     public void notifyBlockClick(int position) {
         Block block = mBlockList.get(position);
+        updateRemainMineCount();
+        if (block.getmBlockState() != Block.BLOCK_STATE_OPEN) {
+            //如果不是点击打开方块，不处理方块的点击逻辑。
+            return;
+        }
         if (block.isMine()) {
             mHandler.removeMessages(MSG_WHAT_TIME_COUNT);
             iMineFieldView.onGameEndFailed(mBlockList, position);
             return;
+        } else if (block.getmAroundMineCount() == 0) {
+            openBlankBlock(block);
+            return;
+        } else {
+            analysisGameState();
         }
+    }
+
+    private void analysisGameState() {
+        int initBlockCount = 0;
+        for (int i = 0; i < mBlockList.size(); i++) {
+            Block block = mBlockList.get(i);
+            if (block.getmBlockState() == Block.BLOCK_STATE_INIT) {
+                initBlockCount++;
+            }
+        }
+        if(initBlockCount == mMineCout){
+            iMineFieldView.onGameEndSucced();
+        }
+    }
+
+    private void openBlankBlockEdge(int position) {
+        Block block = mBlockList.get(position);
+        if (block.getmBlockState() != Block.BLOCK_STATE_OPEN) {
+            block.setmBlockState(Block.BLOCK_STATE_INIT);
+            iMineFieldView.openBlankBlockEdge(position);
+        }
+    }
+
+    private void openBlankBlock(Block block) {
+
+        int x = block.get_X();
+        int y = block.get_Y();
+        if (x - 1 >= 0 && y - 1 >= 0) {//左上
+            int position = (y - 1) * widthCount + (x - 1);
+            openBlankBlockEdge(position);
+        }
+        if (y - 1 >= 0) {//上
+            int position = (y - 1) * widthCount + x;
+            openBlankBlockEdge(position);
+        }
+        if (x + 1 < widthCount && y - 1 >= 0) {//右上
+            int position = (y - 1) * widthCount + x + 1;
+            openBlankBlockEdge(position);
+        }
+        if (x - 1 >= 0) {//左
+            int position = y * widthCount + x - 1;
+            openBlankBlockEdge(position);
+        }
+        if (x + 1 < widthCount) {//右
+            int position = y * widthCount + x + 1;
+            openBlankBlockEdge(position);
+        }
+        if (x - 1 >= 0 && y + 1 < heightCount) {//左下
+            int position = (y + 1) * widthCount + x - 1;
+            openBlankBlockEdge(position);
+        }
+        if (y + 1 < heightCount) {//下
+            int position = (y + 1) * widthCount + x;
+            openBlankBlockEdge(position);
+        }
+        if (x + 1 < widthCount && y + 1 < heightCount) {//右下
+            int position = (y + 1) * widthCount + x + 1;
+            openBlankBlockEdge(position);
+        }
+    }
+
+    @Override
+    public void notifyBlockLongClick(int index) {
+        updateRemainMineCount();
+    }
+
+    private void updateRemainMineCount() {
+        int flagCount = 0;
+        for (int i = 0; i < mBlockList.size(); i++) {
+            Block b = mBlockList.get(i);
+            if (b.getmBlockState() == Block.BLOCK_STATE_FLAG) {
+                flagCount++;
+            }
+        }
+        iMineFieldView.updateRemainMineCount(mMineCout - flagCount);
     }
 
     @Override
     public void onDestroyView() {
         mHandler.removeMessages(MSG_WHAT_TIME_COUNT);
     }
+
 
     private void initMineFieldData() {
         mBlockList = new ArrayList<>();
@@ -169,7 +260,8 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
         }
         // 4. 初始化方块的大小
         blockSize = SharedPreferenceUtils.getInstance().getValue(mContext, SharedPreferenceUtils.BLOCK_SIZE, 20);
-        iMineFieldView.onInitView(mBlockList, widthCount, heightCount, blockSize,this);
+        iMineFieldView.onInitView(mBlockList, widthCount, heightCount, blockSize, mMineCout, this);
     }
+
 
 }

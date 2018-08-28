@@ -7,8 +7,9 @@
         android:id="@+id/btn_mine_item"
         android:layout_width="100px"
         android:layout_height="100px"
-        android:layout_centerInParent="true"
         android:background="@color/flag0"
-        android:textSize="26sp" />
+        android:textSize="26sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -5,8 +5,11 @@ package com.cwh.minesweeper.presenter;
  */
 
 public interface IMineFieldPresenter {
-    public void setClickMode(int mode);
-    public void backToMenu();
-    public void notifyBlockClick(int position);
-    public void onDestroyView();
+    void setClickMode(int mode);
+    void backToMenu();
+    void notifyBlockClick(int position);
+    void onDestroyView();
+
+    void startGame();
+    void notifyBlockLongClick(int index);
 }
