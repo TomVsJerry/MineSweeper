@@ -53,6 +53,9 @@ public class MainActivity extends FragmentActivity {
         mFragmentManager.beginTransaction().replace(R.id.fl_game, mMineFieldFragment).commit();
     }
 
+    public void onStartNewGame(){
+        mFragmentManager.beginTransaction().replace(R.id.fl_game, mMineFieldFragment).commit();
+    }
     public void openGameSetting() {
         mFragmentManager.beginTransaction().replace(R.id.fl_game, mSettingFragment).commit();
     }

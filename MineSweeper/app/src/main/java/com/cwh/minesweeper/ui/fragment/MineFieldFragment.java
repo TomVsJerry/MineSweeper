@@ -75,9 +75,16 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
     }
 
     @Override
-    public void onGameEndSucced() {
+    public void onGameEndSuccessed(ArrayList<Block> list) {
         ivFace.setBackgroundResource(R.drawable.face1);
-        GameEndDialog mGameEnddialog = new GameEndDialog(getContext(), GameEndDialog.DILOG_TITLE_TYPE_FAILED, new GameEndDialog.OnGameEndDilogClickedListener() {
+        tvRemainMineCount.setText("" + 0);
+        for(int i = 0;i<list.size();i++){
+            Block b = list.get(i);
+            if(b.isMine()){
+                mRecyclerView.getChildAt(i).findViewById(R.id.btn_mine_item).setBackgroundResource(R.drawable.flag1);
+            }
+        }
+        GameEndDialog mGameEnddialog = new GameEndDialog(getContext(), GameEndDialog.DILOG_TITLE_TYPE_SUCCESSED, new GameEndDialog.OnGameEndDilogClickedListener() {
 
             @Override
             public void onGameEndDilogCancel() {
@@ -86,7 +93,7 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
 
             @Override
             public void onGameEndDilogConfirm() {
-                iMineFieldPresenter.startGame();
+                ((MainActivity)getActivity()).onStartNewGame();
             }
         });
         mGameEnddialog.setCanceledOnTouchOutside(false);
@@ -112,7 +119,7 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
 
             @Override
             public void onGameEndDilogConfirm() {
-                Toast.makeText(getContext(),"重新开始新游戏",Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).onStartNewGame();
             }
         });
         mGameEnddialog.setCanceledOnTouchOutside(false);

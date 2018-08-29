@@ -26,7 +26,7 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
     private int blockSize;
     private int widthCount = 10;
     private int heightCount = 10;
-    private int mMineCout = (int) (widthCount * heightCount * 0.2);
+    private int mMineCout = (int) (widthCount * heightCount * 0.1);
     private static final int MSG_WHAT_TIME_COUNT = 0;
     private int mGameTime = 0;
     private Handler mHandler = new Handler() {
@@ -52,6 +52,8 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
         initMineFieldData();
         updateTimeTextView();
     }
+
+
 
     private void updateTimeTextView() {
         updateTimeString();
@@ -79,10 +81,14 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
     public void notifyBlockClick(int position) {
         Block block = mBlockList.get(position);
         updateRemainMineCount();
+
         if (block.getmBlockState() != Block.BLOCK_STATE_OPEN) {
             //如果不是点击打开方块，不处理方块的点击逻辑。
             return;
+        }else{
+            openUnflagedBlock(block);
         }
+
         if (block.isMine()) {
             mHandler.removeMessages(MSG_WHAT_TIME_COUNT);
             iMineFieldView.onGameEndFailed(mBlockList, position);
@@ -95,16 +101,97 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
         }
     }
 
+    private void openUnflagedBlock(Block block) {
+        int x = block.get_X();
+        int y = block.get_Y();
+        ArrayList<Block> arroundUnflagedBlocklist = new ArrayList<>();
+        int arroundFlagCount = 0;
+        if (x - 1 >= 0 && y - 1 >= 0) {//左上
+            int position = (y - 1) * widthCount + (x - 1);
+            if(mBlockList.get(position).getmBlockState() == Block.BLOCK_STATE_FLAG){
+                arroundFlagCount++;
+            }else{
+                arroundUnflagedBlocklist.add(mBlockList.get(position));
+            }
+        }
+        if (y - 1 >= 0) {//上
+            int position = (y - 1) * widthCount + x;
+            if(mBlockList.get(position).getmBlockState() == Block.BLOCK_STATE_FLAG){
+                arroundFlagCount++;
+            }else{
+                arroundUnflagedBlocklist.add(mBlockList.get(position));
+            }
+        }
+        if (x + 1 < widthCount && y - 1 >= 0) {//右上
+            int position = (y - 1) * widthCount + x + 1;
+            if(mBlockList.get(position).getmBlockState() == Block.BLOCK_STATE_FLAG){
+                arroundFlagCount++;
+            }else{
+                arroundUnflagedBlocklist.add(mBlockList.get(position));
+            }
+        }
+        if (x - 1 >= 0) {//左
+            int position = y * widthCount + x - 1;
+            if(mBlockList.get(position).getmBlockState() == Block.BLOCK_STATE_FLAG){
+                arroundFlagCount++;
+            }else{
+                arroundUnflagedBlocklist.add(mBlockList.get(position));
+            }
+        }
+        if (x + 1 < widthCount) {//右
+            int position = y * widthCount + x + 1;
+            if(mBlockList.get(position).getmBlockState() == Block.BLOCK_STATE_FLAG){
+                arroundFlagCount++;
+            }else{
+                arroundUnflagedBlocklist.add(mBlockList.get(position));
+            }
+        }
+        if (x - 1 >= 0 && y + 1 < heightCount) {//左下
+            int position = (y + 1) * widthCount + x - 1;
+            if(mBlockList.get(position).getmBlockState() == Block.BLOCK_STATE_FLAG){
+                arroundFlagCount++;
+            }else{
+                arroundUnflagedBlocklist.add(mBlockList.get(position));
+            }
+        }
+        if (y + 1 < heightCount) {//下
+            int position = (y + 1) * widthCount + x;
+            if(mBlockList.get(position).getmBlockState() == Block.BLOCK_STATE_FLAG){
+                arroundFlagCount++;
+            }else{
+                arroundUnflagedBlocklist.add(mBlockList.get(position));
+            }
+        }
+        if (x + 1 < widthCount && y + 1 < heightCount) {//右下
+            int position = (y + 1) * widthCount + x + 1;
+            if(mBlockList.get(position).getmBlockState() == Block.BLOCK_STATE_FLAG){
+                arroundFlagCount++;
+            }else{
+                arroundUnflagedBlocklist.add(mBlockList.get(position));
+            }
+        }
+
+        if(arroundFlagCount == block.getmAroundMineCount()){
+            for(int i = 0; i< arroundUnflagedBlocklist.size();i++){
+                Block b = arroundUnflagedBlocklist.get(i);
+                if (b.getmBlockState() != Block.BLOCK_STATE_OPEN) {
+                    b.setmBlockState(Block.BLOCK_STATE_INIT);
+                    iMineFieldView.openBlankBlockEdge(b.getIndex());
+                }
+            }
+        }
+    }
+
     private void analysisGameState() {
         int initBlockCount = 0;
         for (int i = 0; i < mBlockList.size(); i++) {
             Block block = mBlockList.get(i);
-            if (block.getmBlockState() == Block.BLOCK_STATE_INIT) {
+            if (block.getmBlockState() < Block.BLOCK_STATE_OPEN) {
                 initBlockCount++;
             }
         }
         if(initBlockCount == mMineCout){
-            iMineFieldView.onGameEndSucced();
+            iMineFieldView.onGameEndSuccessed(mBlockList);
         }
     }
 

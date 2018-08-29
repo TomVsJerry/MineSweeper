@@ -14,7 +14,7 @@ public interface IMineFieldView {
     void onModeChange(int mode);
     void onInitView(ArrayList<Block> list, int widthCount, int heightCount, int blockSize, int mineCount,IMineFieldPresenter presenter);
 
-    void onGameEndSucced();
+    void onGameEndSuccessed(ArrayList<Block> list);
 
     void onGameEndFailed(ArrayList<Block> list,int position);
     void onTimeUpdate(String str);
