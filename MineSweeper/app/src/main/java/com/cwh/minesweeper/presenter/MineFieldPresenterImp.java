@@ -24,8 +24,8 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
     private Context mContext;
     private boolean isGameEnd = true;
     private int blockSize;
-    private int widthCount = 10;
-    private int heightCount = 10;
+    private int widthCount = 20;
+    private int heightCount = 20;
     private int mMineCout = (int) (widthCount * heightCount * 0.1);
     private static final int MSG_WHAT_TIME_COUNT = 0;
     private int mGameTime = 0;
@@ -85,8 +85,6 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
         if (block.getmBlockState() != Block.BLOCK_STATE_OPEN) {
             //如果不是点击打开方块，不处理方块的点击逻辑。
             return;
-        }else{
-            openUnflagedBlock(block);
         }
 
         if (block.isMine()) {
@@ -99,6 +97,12 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
         } else {
             analysisGameState();
         }
+    }
+
+    @Override
+    public void notifyClickOpenedBlock(int position) {
+        Block block = mBlockList.get(position);
+        openUnflagedBlock(block);
     }
 
     private void openUnflagedBlock(Block block) {
@@ -184,14 +188,21 @@ public class MineFieldPresenterImp implements IMineFieldPresenter {
 
     private void analysisGameState() {
         int initBlockCount = 0;
+        ArrayList<Block> remainBlockList = new ArrayList<Block>();
         for (int i = 0; i < mBlockList.size(); i++) {
             Block block = mBlockList.get(i);
             if (block.getmBlockState() < Block.BLOCK_STATE_OPEN) {
+                remainBlockList.add(block);
                 initBlockCount++;
             }
         }
         if(initBlockCount == mMineCout){
-            iMineFieldView.onGameEndSuccessed(mBlockList);
+            for(int i = 0;i<remainBlockList.size();i++){
+                Block b = remainBlockList.get(i);
+                b.setmBlockState(Block.BLOCK_STATE_FLAG);
+            }
+            mHandler.removeMessages(MSG_WHAT_TIME_COUNT);
+            iMineFieldView.onGameEndSuccessed(remainBlockList);
         }
     }
 

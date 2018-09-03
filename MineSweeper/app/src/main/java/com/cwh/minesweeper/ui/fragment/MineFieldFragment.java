@@ -51,6 +51,7 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
     ImageView ivFace;
     @Bind(R.id.tv_remain_mine)
     TextView tvRemainMineCount;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
 
 
     @Override
-    public void onInitView(ArrayList<Block> list, int widthCount, int heightCount, int blockSize,int mineCount, IMineFieldPresenter presenter) {
+    public void onInitView(ArrayList<Block> list, int widthCount, int heightCount, int blockSize, int mineCount, IMineFieldPresenter presenter) {
         ViewGroup.LayoutParams layoutParams = mRecyclerView.getLayoutParams();
         layoutParams.width = widthCount * (blockSize + Constant.MIN_BLOCK_SIZE + 8);
         layoutParams.height = heightCount * (blockSize + Constant.MIN_BLOCK_SIZE + 8);
@@ -78,12 +79,12 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
     public void onGameEndSuccessed(ArrayList<Block> list) {
         ivFace.setBackgroundResource(R.drawable.face1);
         tvRemainMineCount.setText("" + 0);
-        for(int i = 0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             Block b = list.get(i);
-            if(b.isMine()){
-                mRecyclerView.getChildAt(i).findViewById(R.id.btn_mine_item).setBackgroundResource(R.drawable.flag1);
-            }
+            b.setmBlockState(Block.BLOCK_STATE_FLAG);
+            mRecyclerView.getChildAt(b.getIndex()).findViewById(R.id.btn_mine_item).setBackgroundResource(R.drawable.flag1);
         }
+
         GameEndDialog mGameEnddialog = new GameEndDialog(getContext(), GameEndDialog.DILOG_TITLE_TYPE_SUCCESSED, new GameEndDialog.OnGameEndDilogClickedListener() {
 
             @Override
@@ -93,7 +94,7 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
 
             @Override
             public void onGameEndDilogConfirm() {
-                ((MainActivity)getActivity()).onStartNewGame();
+                ((MainActivity) getActivity()).onStartNewGame();
             }
         });
         mGameEnddialog.setCanceledOnTouchOutside(false);
@@ -104,10 +105,12 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
     public void onGameEndFailed(ArrayList<Block> list, int position) {
         ivFace.setBackgroundResource(R.drawable.face2);
         mRecyclerView.getChildAt(position).findViewById(R.id.btn_mine_item).setBackgroundResource(R.drawable.bomb0);
-        for(int i = 0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             Block b = list.get(i);
-            if(b.isMine() && position != i){
+            if (b.isMine() && position != i && (b.getmBlockState() != Block.BLOCK_STATE_FLAG)) {
                 mRecyclerView.getChildAt(i).findViewById(R.id.btn_mine_item).setBackgroundResource(R.drawable.bomb1);
+            }else if(!b.isMine() && (b.getmBlockState() == Block.BLOCK_STATE_FLAG)){
+                mRecyclerView.getChildAt(i).findViewById(R.id.btn_mine_item).setBackgroundResource(R.drawable.flag_wrong);
             }
         }
         GameEndDialog mGameEnddialog = new GameEndDialog(getContext(), GameEndDialog.DILOG_TITLE_TYPE_FAILED, new GameEndDialog.OnGameEndDilogClickedListener() {
@@ -119,7 +122,7 @@ public class MineFieldFragment extends Fragment implements IMineFieldView {
 
             @Override
             public void onGameEndDilogConfirm() {
-                ((MainActivity)getActivity()).onStartNewGame();
+                ((MainActivity) getActivity()).onStartNewGame();
             }
         });
         mGameEnddialog.setCanceledOnTouchOutside(false);

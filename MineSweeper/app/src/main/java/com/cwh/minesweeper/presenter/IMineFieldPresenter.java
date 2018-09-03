@@ -8,6 +8,7 @@ public interface IMineFieldPresenter {
     void setClickMode(int mode);
     void backToMenu();
     void notifyBlockClick(int position);
+    void notifyClickOpenedBlock(int position);
     void onDestroyView();
 
     void startGame();

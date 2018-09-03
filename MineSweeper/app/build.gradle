@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
@@ -18,6 +18,14 @@ android {
         }
     }
 }
+greendao {
+    schemaVersion 2 // 数据库版本号
+    daoPackage 'com.greendao.gen'//greenDao 自动生成的代码保存的包名
+    targetGenDir 'src/main/java'
+    //自动生成的代码存储的路径，默认是 build/generated/source/greendao.
+    // generateTests false //true的时候自动生成测试单元
+    // targetGenDirTests: 测试单元的生成目录默认是 src/androidTest/java
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -30,4 +38,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.shizhefei:HVScrollView:1.0.1'
     compile 'com.android.support:recyclerview-v7:25.+'
+    compile 'org.greenrobot:greendao:3.2.2' // add library
 }

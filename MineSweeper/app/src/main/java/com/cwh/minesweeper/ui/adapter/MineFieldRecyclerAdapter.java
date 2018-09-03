@@ -68,7 +68,8 @@ public class MineFieldRecyclerAdapter extends RecyclerView.Adapter<MineFieldRecy
                             b.setmBlockState(Block.BLOCK_STATE_INIT);
                             break;
                         case Block.BLOCK_STATE_OPEN:
-                            break;
+                            iMineFieldPresenter.notifyClickOpenedBlock(b.getIndex());
+                            return;
                     }
                     setBackground((Button) view, b);
                     iMineFieldPresenter.notifyBlockClick(b.getIndex());
