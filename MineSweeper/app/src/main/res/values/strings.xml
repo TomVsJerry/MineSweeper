@@ -3,13 +3,14 @@
     <string name="more_back_to_exit_toast">再按一次还回键退出游戏</string>
     <string name="new_game">开始新游戏</string>
     <string name="open_setting">游戏设置</string>
+    <string name="open_rank_list">排行榜</string>
     <string name="mode_change">模式切换</string>
     <string name="back_to_menu">还回菜单</string>
     <string name="game_level_tips">难度等级设置</string>
     <string name="low_level">低级</string>
     <string name="medium_level">中级</string>
     <string name="high_level">高级</string>
-    <string name="self_define_level">自定义</string>
+    <string name="self_define_level">自定</string>
     <string name="map_size_setting_tips">地图大小设置</string>
     <string name="block_size_setting_tips">方块大小设置</string>
     <string name="title_game_end_success">恭喜你挑战成功！</string>
@@ -18,4 +19,5 @@
     <string name="restart">重新开始</string>
     <string name="cancel">关闭窗口</string>
     <string name="remain_mine">剩余雷数:</string>
+    <string name="reset">清除榜单</string>
 </resources>

@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.cwh.minesweeper.R;
 import com.cwh.minesweeper.ui.fragment.MenuFragment;
 import com.cwh.minesweeper.ui.fragment.MineFieldFragment;
+import com.cwh.minesweeper.ui.fragment.RankListFragment;
 import com.cwh.minesweeper.ui.fragment.SettingFragment;
 
 import butterknife.ButterKnife;
@@ -19,7 +20,9 @@ public class MainActivity extends FragmentActivity {
     private MineFieldFragment mMineFieldFragment;
     private MenuFragment mMenuFragment;
     private SettingFragment mSettingFragment;
+    private RankListFragment mRankListFragment;
     private FragmentManager mFragmentManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,7 @@ public class MainActivity extends FragmentActivity {
         mMineFieldFragment = new MineFieldFragment();
         mMenuFragment = new MenuFragment();
         mSettingFragment = new SettingFragment();
+        mRankListFragment = new RankListFragment();
         mFragmentManager = getSupportFragmentManager();
         backToMenu();
     }
@@ -58,6 +62,10 @@ public class MainActivity extends FragmentActivity {
     }
     public void openGameSetting() {
         mFragmentManager.beginTransaction().replace(R.id.fl_game, mSettingFragment).commit();
+    }
+
+    public void openRankList(){
+        mFragmentManager.beginTransaction().replace(R.id.fl_game, mRankListFragment).commit();
     }
 
     public void backToMenu(){

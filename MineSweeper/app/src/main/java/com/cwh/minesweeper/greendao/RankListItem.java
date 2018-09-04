@@ -1,5 +1,7 @@
 package com.cwh.minesweeper.greendao;
 
+import android.support.annotation.NonNull;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
@@ -9,7 +11,7 @@ import org.greenrobot.greendao.annotation.Id;
  * Created by chenweihu on 2018/9/3 0003.
  */
 @Entity()
-public class RankListItem {
+public class RankListItem implements Comparable<RankListItem> {
     @Id(autoincrement = true)
     private Long id;
     private Integer rankType;//排名类型
@@ -23,6 +25,7 @@ public class RankListItem {
         this.costTime = costTime;
         this.date = date;
     }
+
     @Generated(hash = 466312213)
     public RankListItem() {
     }
@@ -57,5 +60,10 @@ public class RankListItem {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public int compareTo(@NonNull RankListItem rankListItem) {
+        return (int) (rankListItem.costTime - this.costTime);
     }
 }

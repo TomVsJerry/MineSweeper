@@ -31,7 +31,7 @@ public class MenuFragment extends Fragment implements IMenuView {
         return view;
     }
 
-    @OnClick({R.id.btn_new_game,R.id.btn_open_setting})
+    @OnClick({R.id.btn_new_game,R.id.btn_open_setting,R.id.btn_open_rank_list})
     public void startNewGame(View view){
         switch (view.getId()){
             case R.id.btn_new_game:
@@ -39,6 +39,9 @@ public class MenuFragment extends Fragment implements IMenuView {
                 break;
             case R.id.btn_open_setting:
                 mMenuPresenterImp.openGameSetting();
+                break;
+            case R.id.btn_open_rank_list:
+                ((MainActivity)getActivity()).openRankList();
                 break;
         }
 
